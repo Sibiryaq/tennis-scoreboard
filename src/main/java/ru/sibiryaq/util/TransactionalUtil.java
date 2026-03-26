@@ -18,7 +18,9 @@ public class TransactionalUtil {
             transaction.commit();
             return result;
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
             throw e;
         }
     }

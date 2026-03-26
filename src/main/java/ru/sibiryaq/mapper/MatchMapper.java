@@ -1,4 +1,4 @@
-package ru.sibiryaq.util;
+package ru.sibiryaq.mapper;
 
 import ru.sibiryaq.dto.MatchViewDTO;
 import ru.sibiryaq.model.entity.Match;

@@ -5,7 +5,7 @@ import ru.sibiryaq.exception.InvalidRequestException;
 import ru.sibiryaq.model.entity.Match;
 import ru.sibiryaq.repository.MatchRepository;
 import ru.sibiryaq.repository.impl.MatchRepositoryImpl;
-import ru.sibiryaq.util.MatchMapper;
+import ru.sibiryaq.mapper.MatchMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

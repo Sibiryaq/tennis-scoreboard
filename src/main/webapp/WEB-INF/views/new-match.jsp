@@ -11,7 +11,7 @@
 <header class="header">
     <section class="nav-header">
         <div class="brand">
-            <img src="${pageContext.request.contextPath}/images/menu.png" class="logo">
+            <img src="${pageContext.request.contextPath}/images/menu.png" class="logo" alt="">
             <span class="logo-text">TennisScoreboard</span>
         </div>
         <nav class="nav-links">
@@ -31,10 +31,14 @@
             <form method="post" action="${pageContext.request.contextPath}/new-match">
 
                 <label class="label-player">Player one</label>
-                <input class="input-player" name="player1" placeholder="Name" required>
+                <label>
+                    <input class="input-player" name="player1" placeholder="Name" required>
+                </label>
 
                 <label class="label-player">Player two</label>
-                <input class="input-player" name="player2" placeholder="Name" required>
+                <label>
+                    <input class="input-player" name="player2" placeholder="Name" required>
+                </label>
 
                 <input class="form-button" type="submit" value="Start">
             </form>
