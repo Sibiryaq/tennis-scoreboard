@@ -28,30 +28,60 @@
 
         <div class="input-container">
             <form method="get" action="${pageContext.request.contextPath}/matches" style="width:100%; display:flex;">
-                <input class="input-filter" name="filter_by_player_name" placeholder="Filter by name"/>
+                <input class="input-filter"
+                       name="filter_by_player_name"
+                       value="${filter}"
+                       placeholder="Filter by name"/>
                 <button class="btn-filter" type="submit">Search</button>
             </form>
         </div>
 
-        <table class="table-matches">
-            <tr>
-                <th>Player One</th>
-                <th>Player Two</th>
-                <th>Winner</th>
-            </tr>
+        <c:if test="${empty matches}">
+            <div style="margin-top: 20px;">No matches found</div>
+        </c:if>
 
-            <c:forEach var="m" items="${matches}">
+        <c:if test="${not empty matches}">
+            <table class="table-matches">
                 <tr>
-                    <td>${m.player1Name}</td>
-                    <td>${m.player2Name}</td>
-                    <td><span class="winner-name-td">${m.winnerName}</span></td>
+                    <th>Player One</th>
+                    <th>Player Two</th>
+                    <th>Winner</th>
                 </tr>
-            </c:forEach>
-        </table>
+
+                <c:forEach var="m" items="${matches}">
+                    <tr>
+                        <td>${m.player1Name}</td>
+                        <td>${m.player2Name}</td>
+                        <td><span class="winner-name-td">${m.winnerName}</span></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
+        <div style="margin-top: 20px;">
+
+            <c:if test="${currentPage > 1}">
+                <a href="${pageContext.request.contextPath}/matches?page=${currentPage - 1}&filter_by_player_name=${filter}">
+                    Previous
+                </a>
+            </c:if>
+
+            <span style="margin: 0 10px;">
+                Page ${currentPage}
+            </span>
+
+            <c:if test="${hasNextPage}">
+                <a href="${pageContext.request.contextPath}/matches?page=${currentPage + 1}&filter_by_player_name=${filter}">
+                    Next
+                </a>
+            </c:if>
+
+        </div>
 
         <a href="${pageContext.request.contextPath}/new-match">
             <button class="form-button">New Match</button>
         </a>
+
     </div>
 </main>
 

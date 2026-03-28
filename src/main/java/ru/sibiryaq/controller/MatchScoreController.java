@@ -60,18 +60,21 @@ public class MatchScoreController extends HttpServlet {
             throw new InvalidRequestException("Player must be 1 or 2");
         }
 
-        scoreService.pointWonBy(match, player);
+        synchronized (match) {
 
-        if (scoreService.isMatchFinished(match)) {
-            Player winner = match.getScore().getPlayer1Sets() == 2
-                    ? match.getPlayer1()
-                    : match.getPlayer2();
+            scoreService.pointWonBy(match, player);
 
-            finishedService.saveFinishedMatch(match, winner);
-            ongoingService.remove(match.getId());
+            if (scoreService.isMatchFinished(match)) {
+                Player winner = match.getScore().getPlayer1Sets() == 2
+                        ? match.getPlayer1()
+                        : match.getPlayer2();
 
-            resp.sendRedirect(req.getContextPath() + "/matches");
-            return;
+                finishedService.saveFinishedMatch(match, winner);
+                ongoingService.remove(match.getId());
+
+                resp.sendRedirect(req.getContextPath() + "/matches");
+                return;
+            }
         }
 
         resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + match.getId());

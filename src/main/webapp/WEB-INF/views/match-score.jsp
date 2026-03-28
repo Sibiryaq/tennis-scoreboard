@@ -28,7 +28,6 @@
 
         <div class="current-match-image"></div>
 
-        <!-- ✅ Показываем режим -->
         <c:if test="${match.score.tieBreak}">
             <div style="color: orange; font-weight: bold; margin-bottom: 10px;">
                 Tie-break
@@ -39,16 +38,16 @@
             <table class="table">
                 <thead class="result">
                 <tr>
-                    <th class="table-text">Player</th>
-                    <th class="table-text">Sets</th>
-                    <th class="table-text">Games</th>
-                    <th class="table-text">Points</th>
+                    <th>Player</th>
+                    <th>Sets</th>
+                    <th>Games</th>
+                    <th>Points</th>
                     <th></th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr class="player1">
+                <tr>
                     <td>${match.player1.name}</td>
                     <td>${match.score.player1Sets}</td>
                     <td>${match.score.player1Games}</td>
@@ -64,12 +63,17 @@
                     </td>
                     <td>
                         <form method="post">
-                            <button class="score-btn" name="player" value="1">Score</button>
+                            <button class="score-btn"
+                                    name="player"
+                                    value="1"
+                                    onclick="this.disabled=true; this.form.submit();">
+                                Score
+                            </button>
                         </form>
                     </td>
                 </tr>
 
-                <tr class="player2">
+                <tr>
                     <td>${match.player2.name}</td>
                     <td>${match.score.player2Sets}</td>
                     <td>${match.score.player2Games}</td>
@@ -85,7 +89,12 @@
                     </td>
                     <td>
                         <form method="post">
-                            <button class="score-btn" name="player" value="2">Score</button>
+                            <button class="score-btn"
+                                    name="player"
+                                    value="2"
+                                    onclick="this.disabled=true; this.form.submit();">
+                                Score
+                            </button>
                         </form>
                     </td>
                 </tr>

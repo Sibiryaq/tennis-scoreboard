@@ -30,7 +30,6 @@
 
         <div class="form-container center">
 
-            <!-- ✅ БЛОК ОШИБКИ -->
             <c:if test="${not empty error}">
                 <div style="color:red; margin-bottom: 10px;">
                         ${error}
