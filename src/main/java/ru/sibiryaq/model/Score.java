@@ -14,4 +14,8 @@ public class Score {
 
     private int player1Sets = 0;
     private int player2Sets = 0;
+
+    private boolean tieBreak = false;
+    private int player1TiePoints = 0;
+    private int player2TiePoints = 0;
 }

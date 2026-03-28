@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -27,6 +28,13 @@
 
         <div class="current-match-image"></div>
 
+        <!-- ✅ Показываем режим -->
+        <c:if test="${match.score.tieBreak}">
+            <div style="color: orange; font-weight: bold; margin-bottom: 10px;">
+                Tie-break
+            </div>
+        </c:if>
+
         <section class="score">
             <table class="table">
                 <thead class="result">
@@ -44,7 +52,16 @@
                     <td>${match.player1.name}</td>
                     <td>${match.score.player1Sets}</td>
                     <td>${match.score.player1Games}</td>
-                    <td>${match.score.player1Points}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${match.score.tieBreak}">
+                                ${match.score.player1TiePoints}
+                            </c:when>
+                            <c:otherwise>
+                                ${match.score.player1Points}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>
                         <form method="post">
                             <button class="score-btn" name="player" value="1">Score</button>
@@ -56,7 +73,16 @@
                     <td>${match.player2.name}</td>
                     <td>${match.score.player2Sets}</td>
                     <td>${match.score.player2Games}</td>
-                    <td>${match.score.player2Points}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${match.score.tieBreak}">
+                                ${match.score.player2TiePoints}
+                            </c:when>
+                            <c:otherwise>
+                                ${match.score.player2Points}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>
                         <form method="post">
                             <button class="score-btn" name="player" value="2">Score</button>

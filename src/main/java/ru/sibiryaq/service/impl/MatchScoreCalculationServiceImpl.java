@@ -28,6 +28,10 @@ public class MatchScoreCalculationServiceImpl implements MatchScoreCalculationSe
     }
 
     private void processPointWin(Score score, boolean isPlayerOne) {
+        if (score.isTieBreak()) {
+            processTieBreak(score, isPlayerOne);
+            return;
+        }
         Point current = isPlayerOne ? score.getPlayer1Points() : score.getPlayer2Points();
         Point opponent = isPlayerOne ? score.getPlayer2Points() : score.getPlayer1Points();
 
@@ -98,6 +102,10 @@ public class MatchScoreCalculationServiceImpl implements MatchScoreCalculationSe
     }
 
     private void checkSetWin(Score score) {
+        if (score.getPlayer1Games() == 6 && score.getPlayer2Games() == 6) {
+            score.setTieBreak(true);
+            return;
+        }
         if (isSetWon(score.getPlayer1Games(), score.getPlayer2Games())) {
             score.setPlayer1Sets(score.getPlayer1Sets() + 1);
             resetGames(score);
@@ -114,5 +122,29 @@ public class MatchScoreCalculationServiceImpl implements MatchScoreCalculationSe
     private void resetGames(Score score) {
         score.setPlayer1Games(0);
         score.setPlayer2Games(0);
+    }
+
+    private void processTieBreak(Score score, boolean isPlayerOne) {
+        if (isPlayerOne) {
+            score.setPlayer1TiePoints(score.getPlayer1TiePoints() + 1);
+        } else {
+            score.setPlayer2TiePoints(score.getPlayer2TiePoints() + 1);
+        }
+
+        int p1 = score.getPlayer1TiePoints();
+        int p2 = score.getPlayer2TiePoints();
+
+        if ((p1 >= 7 || p2 >= 7) && Math.abs(p1 - p2) >= 2) {
+            if (p1 > p2) {
+                score.setPlayer1Sets(score.getPlayer1Sets() + 1);
+            } else {
+                score.setPlayer2Sets(score.getPlayer2Sets() + 1);
+            }
+
+            score.setTieBreak(false);
+            score.setPlayer1TiePoints(0);
+            score.setPlayer2TiePoints(0);
+            resetGames(score);
+        }
     }
 }

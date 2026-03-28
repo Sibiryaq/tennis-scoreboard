@@ -34,20 +34,32 @@ public class NewMatchController extends HttpServlet {
                 .forward(req, resp);
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String p1Name = req.getParameter("player1");
         String p2Name = req.getParameter("player2");
 
         if (p1Name == null || p2Name == null || p1Name.isBlank() || p2Name.isBlank()) {
-            throw new InvalidRequestException("Players required");
+            req.setAttribute("error", "Имена игроков не могут быть пустыми");
+
+            req.setAttribute("player1", p1Name);
+            req.setAttribute("player2", p2Name);
+
+            req.getRequestDispatcher("/WEB-INF/views/new-match.jsp").forward(req, resp);
+            return;
         }
 
         p1Name = p1Name.trim();
         p2Name = p2Name.trim();
 
         if (p1Name.equals(p2Name)) {
-            throw new InvalidRequestException("Players must be different");
+            req.setAttribute("error", "Игроки должны быть разными");
+            req.setAttribute("player1", p1Name);
+            req.setAttribute("player2", p2Name);
+
+            req.getRequestDispatcher("/WEB-INF/views/new-match.jsp")
+                    .forward(req, resp);
+            return;
         }
 
         Player p1 = playerRepo.findOrCreate(p1Name);
