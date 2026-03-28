@@ -12,7 +12,7 @@
 <header class="header">
     <section class="nav-header">
         <div class="brand">
-            <img src="${pageContext.request.contextPath}/images/menu.png" class="logo">
+            <img src="${pageContext.request.contextPath}/images/menu.png" class="logo" alt="Logo">
             <span class="logo-text">TennisScoreboard</span>
         </div>
         <nav class="nav-links">
@@ -26,6 +26,14 @@
     <div class="container">
         <h1>Matches</h1>
 
+        <!-- ДЕКОР: без max-width:400px, чтобы не был маленьким -->
+        <div style="text-align:center; margin-bottom:20px;">
+            <img src="${pageContext.request.contextPath}/images/frame_matches.png"
+                 alt="Matches"
+                 style="width:100%; max-width:1100px; height:auto; border-radius:30px;">
+        </div>
+
+        <!-- ФИЛЬТР -->
         <div class="input-container">
             <form method="get" action="${pageContext.request.contextPath}/matches" style="width:100%; display:flex;">
                 <input class="input-filter"
@@ -36,10 +44,12 @@
             </form>
         </div>
 
+        <!-- ЕСЛИ ПУСТО -->
         <c:if test="${empty matches}">
             <div style="margin-top: 20px;">No matches found</div>
         </c:if>
 
+        <!-- ТАБЛИЦА -->
         <c:if test="${not empty matches}">
             <table class="table-matches">
                 <tr>
@@ -52,14 +62,19 @@
                     <tr>
                         <td>${m.player1Name}</td>
                         <td>${m.player2Name}</td>
-                        <td><span class="winner-name-td">${m.winnerName}</span></td>
+                        <td>
+                            <img src="${pageContext.request.contextPath}/images/cup.png"
+                                 alt="Winner"
+                                 style="width:30px; vertical-align:middle; margin-right:8px;">
+                            <span class="winner-name-td">${m.winnerName}</span>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
         </c:if>
 
+        <!-- ПАГИНАЦИЯ -->
         <div style="margin-top: 20px;">
-
             <c:if test="${currentPage > 1}">
                 <a href="${pageContext.request.contextPath}/matches?page=${currentPage - 1}&filter_by_player_name=${filter}">
                     Previous
@@ -75,13 +90,11 @@
                     Next
                 </a>
             </c:if>
-
         </div>
 
         <a href="${pageContext.request.contextPath}/new-match">
             <button class="form-button">New Match</button>
         </a>
-
     </div>
 </main>
 

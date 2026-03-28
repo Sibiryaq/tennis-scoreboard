@@ -26,6 +26,7 @@
     <div class="container">
         <h1>Current match</h1>
 
+        <!-- ✅ ТОЛЬКО CSS -->
         <div class="current-match-image"></div>
 
         <c:if test="${match.score.tieBreak}">
@@ -36,7 +37,7 @@
 
         <section class="score">
             <table class="table">
-                <thead class="result">
+                <thead>
                 <tr>
                     <th>Player</th>
                     <th>Sets</th>
@@ -63,12 +64,8 @@
                     </td>
                     <td>
                         <form method="post">
-                            <button class="score-btn"
-                                    name="player"
-                                    value="1"
-                                    onclick="this.disabled=true; this.form.submit();">
-                                Score
-                            </button>
+                            <input type="hidden" name="uuid" value="${match.id}" />
+                            <button type="submit" class="score-btn" name="player" value="1">Score</button>
                         </form>
                     </td>
                 </tr>
@@ -89,15 +86,12 @@
                     </td>
                     <td>
                         <form method="post">
-                            <button class="score-btn"
-                                    name="player"
-                                    value="2"
-                                    onclick="this.disabled=true; this.form.submit();">
-                                Score
-                            </button>
+                            <input type="hidden" name="uuid" value="${match.id}" />
+                            <button type="submit" class="score-btn" name="player" value="2">Score</button>
                         </form>
                     </td>
                 </tr>
+
                 </tbody>
             </table>
         </section>

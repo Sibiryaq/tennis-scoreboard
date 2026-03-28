@@ -1,9 +1,8 @@
 package ru.sibiryaq.controller;
 
-import ru.sibiryaq.exception.InvalidRequestException;
 import ru.sibiryaq.model.OngoingMatch;
-import ru.sibiryaq.model.entity.Player;
 import ru.sibiryaq.model.Score;
+import ru.sibiryaq.model.entity.Player;
 import ru.sibiryaq.repository.PlayerRepository;
 import ru.sibiryaq.repository.impl.PlayerRepositoryImpl;
 import ru.sibiryaq.service.OngoingMatchesService;
